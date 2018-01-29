@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.net.URL;
 
 // Completed (1) implement LoaderManager.LoaderCallbacks<String> on MainActivity
-public class MainActivity extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<String>{
+public class MainActivity extends AppCompatActivity  implements android.support.v4.app.LoaderManager.LoaderCallbacks<String>{
 
     /* A constant to save and restore the URL that is being displayed */
     private static final String SEARCH_QUERY_URL_EXTRA = "query";
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
         android.support.v4.content.Loader loader = manager.getLoader(GITHUB_SEARCH_LOADER);
         // Completed (23) If the Loader was null, initialize it. Else, restart it.
         if(loader == null) {
-            loader = new android.support.v4.content.Loader(this.getApplicationContext());
+            manager.initLoader(GITHUB_SEARCH_LOADER,null,this);
         }
         else
             loader.reset();
@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
     // Completed (12) Copy the try / catch block from the AsyncTask's doInBackground method
     // END - loadInBackground
     @Override
-    public Loader<String> onCreateLoader(int i, final Bundle bundle) {
-        return new AsyncTaskLoader<String>(this) {
+    public android.support.v4.content.Loader<String> onCreateLoader(int i, final Bundle bundle) {
+        return new android.support.v4.content.AsyncTaskLoader<String>(this) {
             @Override
             public String loadInBackground() {
                 String searchUrl = bundle.getString(SEARCH_QUERY_URL_EXTRA);
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
     }
 
     @Override
-    public void onLoadFinished(Loader<String> loader, String githubSearchResults) {
+    public void onLoadFinished(android.support.v4.content.Loader<String> loader, String githubSearchResults) {
         mLoadingIndicator.setVisibility(View.INVISIBLE);
         if (githubSearchResults != null && !githubSearchResults.equals("")) {
             showJsonDataView();
@@ -216,10 +216,9 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
     }
 
     @Override
-    public void onLoaderReset(Loader<String> loader) {
-
+    public void onLoaderReset(android.support.v4.content.Loader<String> loader) {
+        
     }
-
 
 
     // Completed (13) Override onLoadFinished
