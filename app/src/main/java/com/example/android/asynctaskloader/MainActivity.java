@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {
     // completed(3) Override onSaveInstanceState to persist data across Activity recreation
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         String url  = mUrlDisplayTextView.getText().toString();
         outState.putString(URL,url);
         String rawJason = mSearchResultsTextView.getText().toString();
